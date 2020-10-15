@@ -1,0 +1,64 @@
+<footer class="bg-secondary">
+  <div class="section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 col-sm-6 mb-4 mb-md-0">
+          <a href="{{site.BaseURL}}"><img src="{{site.Params.logo | absURL }}" alt="{{site.Title}}" class="img-fluid"></a>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4 mb-md-0">
+          <h6>地址</h6>
+          <ul class="list-unstyled">
+            <li class="font-secondary text-dark">{{site.Params.address | markdownify }}</li>
+          </ul>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4 mb-md-0">
+          <h6>联系方式</h6>
+          <ul class="list-unstyled">
+            <li class="font-secondary text-dark">电话 : {{ site.Params.mobile | markdownify }}</li>
+            <li class="font-secondary text-dark">Email : {{ site.Params.email | markdownify }}</li>
+          </ul>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4 mb-md-0">
+          <h6>加个关注</h6>
+          <ul class="list-inline d-inline-block">
+            {{ range site.Params.social }}
+            <li class="list-inline-item"><a href="{{ .URL }}" class="text-dark"><i class="{{ .icon }}"></i></a></li>
+            {{ end }}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center pb-3">
+    <p class="mb-0">{{ site.Params.copyright | markdownify }}</p>
+  </div>
+</footer>
+
+
+{{ if site.Params.search }}
+<script>
+  var indexURL = {{ "index.json" | absURL }}
+</script>
+{{ end }}
+
+{{ "<!-- JS Plugins -->" | safeHTML }}
+{{ range site.Params.plugins.js}}
+<script src="{{ .link | absURL }}"></script>
+{{ end }}
+
+{{ "<!-- Main Script -->" | safeHTML }}
+{{ $script := resources.Get "js/script.js" | minify}}
+<script src="{{ $script.Permalink }}"></script>
+
+{{ "<!-- google analitycs -->" | safeHTML }}
+{{ with site.Params.google_analitycs_id }}
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?d3af81326c7dc9f0a0e0d3790852742f";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+{{ end }}
